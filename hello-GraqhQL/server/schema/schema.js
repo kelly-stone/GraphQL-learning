@@ -9,7 +9,7 @@ const books = [
   { name: "BOOK3", genre: "Romance", id: "3" }
 ];
 
-console.log(_.find(books, { id: "2" }));
+// console.log(_.find(books, { id: "2" }));
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -29,7 +29,11 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         // 从哪里得到数据，比如数据库或其他来源
         // Mongodb mysql postgresql
-        _.find(books, { id: args.id });
+
+        // console.log(args);
+
+        // console.log(_.find(books, { id: args.id }));
+        return _.find(books, { id: args.id });
       }
     }
   }
