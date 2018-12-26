@@ -23,21 +23,28 @@ const authors = [
   { name: "lili", age: 21, id: "3" }
 ];
 
+const BookType = new GraphQLObjectType({
+  name: "Book",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    genre: { type: GraphQLString },
+    author: {
+      type: AuthorType,
+      resolve(parent, args) {
+        // console.log(parent);
+        return _.find(authors, { id: parent.id });
+      }
+    }
+  })
+});
+
 const AuthorType = new GraphQLObjectType({
   name: "Author",
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     age: { type: GraphQLInt }
-  })
-});
-
-const BookType = new GraphQLObjectType({
-  name: "Book",
-  fields: () => ({
-    id: { type: GraphQLID },
-    name: { type: GraphQLString },
-    genre: { type: GraphQLString }
   })
 });
 
