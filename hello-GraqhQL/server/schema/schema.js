@@ -36,7 +36,7 @@ const RootQuery = new GraphQLObjectType({
         // Mongodb mysql postgresql
 
         // console.log(args);
-
+        console.log(typeof args.id);
         // console.log(_.find(books, { id: args.id }));
         return _.find(books, { id: args.id });
       }
