@@ -5,7 +5,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
-  GraphQLID
+  GraphQLID,
+  GraphQLInt
 } = require("graphql");
 
 const books = [
@@ -15,6 +16,21 @@ const books = [
 ];
 
 // console.log(_.find(books, { id: "2" }));
+
+const authors = [
+  { name: "hfpp2012", age: 27, id: "1" },
+  { name: "fdsa365", age: 30, id: "2" },
+  { name: "lili", age: 21, id: "3" }
+];
+
+const AuthorType = new GraphQLObjectType({
+  name: "Author",
+  fields: () => ({
+    id: { type: GraphQLID },
+    name: { type: GraphQLString },
+    age: { type: GraphQLInt }
+  })
+});
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -36,9 +52,18 @@ const RootQuery = new GraphQLObjectType({
         // Mongodb mysql postgresql
 
         // console.log(args);
-        console.log(typeof args.id);
+
+        //console.log(typeof args.id);
+
         // console.log(_.find(books, { id: args.id }));
         return _.find(books, { id: args.id });
+      }
+    },
+    author: {
+      type: AuthorType,
+      args: { id: { type: GraphQLID } },
+      resolve(parent, args) {
+        return _.find(authors, { id: args.id });
       }
     }
   }
