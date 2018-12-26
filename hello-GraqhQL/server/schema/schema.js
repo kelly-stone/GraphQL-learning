@@ -10,9 +10,9 @@ const {
 } = require("graphql");
 
 const books = [
-  { name: "BOOK1", genre: "IT", id: "1" },
-  { name: "BOOK2", genre: "Drama", id: "2" },
-  { name: "BOOK3", genre: "Romance", id: "3" }
+  { name: "BOOK1", genre: "IT", id: "1", authorId: "1" },
+  { name: "BOOK2", genre: "Drama", id: "2", authorId: "2" },
+  { name: "BOOK3", genre: "Romance", id: "3", authorId: "3" }
 ];
 
 // console.log(_.find(books, { id: "2" }));
