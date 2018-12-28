@@ -1,5 +1,7 @@
 const graphql = require("graphql");
 const _ = require("lodash");
+const Book = require("../models/book");
+const Author = require("../models/author");
 
 const {
   GraphQLObjectType,
@@ -10,21 +12,21 @@ const {
   GraphQLList
 } = require("graphql");
 
-const books = [
-  { name: "BOOK1", genre: "IT", id: "1", authorId: "1" },
-  { name: "BOOK2", genre: "Drama", id: "2", authorId: "2" },
-  { name: "BOOK3", genre: "Romance", id: "3", authorId: "3" },
-  { name: "BOOK4", genre: "Drama", id: "4", authorId: "1" },
-  { name: "BOOK5", genre: "Romance", id: "5", authorId: "2" }
-];
+// const books = [
+//   { name: "BOOK1", genre: "IT", id: "1", authorId: "1" },
+//   { name: "BOOK2", genre: "Drama", id: "2", authorId: "2" },
+//   { name: "BOOK3", genre: "Romance", id: "3", authorId: "3" },
+//   { name: "BOOK4", genre: "Drama", id: "4", authorId: "1" },
+//   { name: "BOOK5", genre: "Romance", id: "5", authorId: "2" }
+// ];
 
-// console.log(_.find(books, { id: "2" }));
+// // console.log(_.find(books, { id: "2" }));
 
-const authors = [
-  { name: "hfpp2012", age: 27, id: "1" },
-  { name: "fdsa365", age: 30, id: "2" },
-  { name: "lili", age: 21, id: "3" }
-];
+// const authors = [
+//   { name: "hfpp2012", age: 27, id: "1" },
+//   { name: "fdsa365", age: 30, id: "2" },
+//   { name: "lili", age: 21, id: "3" }
+// ];
 
 const BookType = new GraphQLObjectType({
   name: "Book",
@@ -100,6 +102,29 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
+const Mutation = new GraphQLObjectType({
+  name: "Mutation",
+  fields: {
+    addAuthor: {
+      type: AuthorType,
+      args: {
+        name: { type: GraphQLString },
+        age: { type: GraphQLInt }
+      },
+      resolve(parent, args) {
+        //how to show the new author
+        let author = new Author({
+          //Author is from models/author (top, require)
+          name: args.name,
+          age: args.age
+        });
+        return author.save(); //remember return
+      }
+    }
+  }
+});
+
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery, //query is like looking for the data
+  mutation: Mutation //mutation is like edit data
 });

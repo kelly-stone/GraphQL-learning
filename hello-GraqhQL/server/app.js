@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //连接到mlab数据库
+//替换自己的用户名和密码
 mongoose.connect(
   "mongodb://test:test1234@ds245234.mlab.com:45234/graphql",
   { useNewUrlParser: true }
