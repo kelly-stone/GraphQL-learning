@@ -120,6 +120,24 @@ const Mutation = new GraphQLObjectType({
         });
         return author.save(); //remember return
       }
+    },
+    addBook: {
+      type: BookType,
+      args: {
+        name: { type: GraphQLString },
+        genre: { type: GraphQLString },
+        authorId: { type: GraphQLID }
+      },
+      resolve(parent, args) {
+        //how to show the new author
+        let book = new Book({
+          //Book is from models/book (top, require)
+          name: args.name,
+          genre: args.genre,
+          authorId: args.authorId
+        });
+        return book.save(); //remember return
+      }
     }
   }
 });
