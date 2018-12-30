@@ -1,5 +1,15 @@
 import React, { Component } from "react";
 import { graphql } from "react-apollo";
+import gql from "graphql-tag";
+
+const getBookQuery = gql`
+  {
+    books {
+      name
+      id
+    }
+  }
+`;
 
 class BookList extends Component {
   render() {
@@ -13,4 +23,4 @@ class BookList extends Component {
   }
 }
 
-export default graphql(BookList);
+export default graphql(getBookQuery)(BookList);
