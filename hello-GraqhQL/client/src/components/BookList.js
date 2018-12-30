@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { graphql } from "react-apollo";
 
 class BookList extends Component {
   render() {
@@ -12,4 +13,4 @@ class BookList extends Component {
   }
 }
 
-export default BookList;
+export default graphql(BookList);
