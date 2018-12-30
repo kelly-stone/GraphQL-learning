@@ -2,8 +2,11 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const schema = require("./schema/schema");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
+
+app.use(cors()); //read github.com/apollograpql/react-apollo
 
 //连接到mlab数据库
 //替换自己的用户名和密码
