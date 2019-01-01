@@ -5,6 +5,12 @@ import { graphql } from "react-apollo";
 import { getAuthorsQuery } from "../queries/queries";
 
 class AddBook extends Component {
+  state = {
+    name: "",
+    genre: "",
+    authorId: ""
+  };
+
   displayAuthors = () => {
     const data = this.props.data;
     //from the console.log below(this.props), there is loading:true and false
@@ -23,27 +29,42 @@ class AddBook extends Component {
       });
     }
   };
-  render() {
-    console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
 
+  submitForm = e => {
+    e.preventDefault();
+    console.log(this.state);
+  };
+
+  render() {
+    //console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
     return (
-      <form>
+      <form onSubmit={this.submitForm}>
         <div className="field">
           <label>Book name:</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={e => this.setState({ name: e.target.value })}
+          />
         </div>
 
         <div className="field">
           <label>Genre:</label>
-          <input type="text" />
+          <input
+            type="text"
+            onChange={e => this.setState({ genre: e.target.value })}
+          />
         </div>
 
         <div className="field">
           <label>Author:</label>
-          <select>
+          <select onChange={e => this.setState({ authorId: e.target.value })}>
             <option>Select Author</option>
             {this.displayAuthors()}
           </select>
+        </div>
+
+        <div>
+          <button>Add</button>
         </div>
       </form>
     );

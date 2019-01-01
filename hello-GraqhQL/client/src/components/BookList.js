@@ -24,7 +24,7 @@ class BookList extends Component {
     }
   };
   render() {
-    console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
+    //console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
     return (
       <div>
         <ul>{this.displayBooks()}</ul>
