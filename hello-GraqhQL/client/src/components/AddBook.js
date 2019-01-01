@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 
-import { graphql } from "react-apollo";
+import { graphql, compose } from "react-apollo";
 
-import { getAuthorsQuery } from "../queries/queries";
+import { getAuthorsQuery, addBookMutation } from "../queries/queries";
 
 class AddBook extends Component {
   state = {
@@ -12,7 +12,8 @@ class AddBook extends Component {
   };
 
   displayAuthors = () => {
-    const data = this.props.data;
+    console.log(this.props);
+    const data = this.props.getAuthorsQuery;
     //from the console.log below(this.props), there is loading:true and false
     if (data.error) {
       return <div>undefined</div>;
@@ -32,7 +33,8 @@ class AddBook extends Component {
 
   submitForm = e => {
     e.preventDefault();
-    console.log(this.state);
+    //console.log(this.state);
+    this.props.addBookMutation();
   };
 
   render() {
@@ -71,4 +73,7 @@ class AddBook extends Component {
   }
 }
 
-export default graphql(getAuthorsQuery)(AddBook);
+export default compose(
+  graphql(getAuthorsQuery, { name: "getAuthorsQuery" }),
+  graphql(addBookMutation, { name: "addBookMutation" })
+)(AddBook);
