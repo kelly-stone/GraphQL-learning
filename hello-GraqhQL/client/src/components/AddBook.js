@@ -12,7 +12,7 @@ class AddBook extends Component {
   };
 
   displayAuthors = () => {
-    console.log(this.props);
+    //console.log(this.props);
     const data = this.props.getAuthorsQuery;
     //from the console.log below(this.props), there is loading:true and false
     if (data.error) {
@@ -34,7 +34,13 @@ class AddBook extends Component {
   submitForm = e => {
     e.preventDefault();
     //console.log(this.state);
-    this.props.addBookMutation();
+    this.props.addBookMutation({
+      variables: {
+        name: this.state.name,
+        genre: this.state.genre,
+        authorId: this.state.authorId
+      }
+    });
   };
 
   render() {
