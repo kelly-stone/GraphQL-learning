@@ -1,8 +1,7 @@
 import React, { Component } from "react";
-
 import { graphql } from "react-apollo";
-
-import { getBookQuery } from "../queries/queries";
+import { getBooksQuery } from "../queries/queries";
+import BookDetails from "./BookDetails";
 
 class BookList extends Component {
   displayBooks = () => {
@@ -27,10 +26,11 @@ class BookList extends Component {
     //console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
     return (
       <div>
-        <ul>{this.displayBooks()}</ul>
+        {this.displayBooks()}
+        <BookDetails />
       </div>
     );
   }
 }
 
-export default graphql(getBookQuery)(BookList);
+export default graphql(getBooksQuery)(BookList);
