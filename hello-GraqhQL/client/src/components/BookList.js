@@ -4,30 +4,37 @@ import { getBooksQuery } from "../queries/queries";
 import BookDetails from "./BookDetails";
 
 class BookList extends Component {
+  state = {
+    selected: null
+  };
+
   displayBooks = () => {
     const data = this.props.data;
-    //from the console.log below(this.props), there is loading:true and false
-    if (data.error) {
-      return <div>undefined</div>;
-    } else if (data.loading) {
-      return <div>loading ......</div>;
+    if (data.loading) {
+      return <div>Loading books...</div>;
     } else {
-      //from console.log(this.props below)
       return (
         <ul id="book-list">
           {data.books.map(book => {
-            return <li key={book.id}>{book.name}</li>;
+            return (
+              <li
+                key={book.id}
+                onClick={e => this.setState({ selected: book.id })}
+              >
+                {book.name}
+              </li>
+            );
           })}
         </ul>
       );
     }
   };
+
   render() {
-    //console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
     return (
       <div>
         {this.displayBooks()}
-        <BookDetails />
+        <BookDetails bookId={this.state.selected} />
       </div>
     );
   }
