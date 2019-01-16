@@ -2,9 +2,9 @@ import React, { Component } from "react";
 import { graphql } from "react-apollo";
 import { getBookQuery } from "../queries/queries";
 
-export class BookDetails extends Component {
+class BookDetails extends Component {
   displayBookDetails = () => {
-    const { book } = this.props.data; //console.log(this.props)
+    const { book } = this.props.data;
     if (book) {
       return (
         <div>
@@ -20,11 +20,11 @@ export class BookDetails extends Component {
         </div>
       );
     } else {
-      return <div>No Book Selected...</div>;
+      return <div>No book selected...</div>;
     }
   };
+
   render() {
-    //console.log(this.props); //after refreshing, there are two different data{} in console.log from different port
     return <div id="book-details">{this.displayBookDetails()}</div>;
   }
 }
